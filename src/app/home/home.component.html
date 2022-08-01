@@ -1,0 +1,139 @@
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+      <img class="logo-img" src="https://www.pitang.com/image/layout_set_logo?img_id=64051&t=1648734708816" width="160" height="50">
+      <img class="logo-img" src="https://agil.facepe.br/imagens/logo_facepe.png" width="160" height="50">
+      <img class="logo-img" src="https://seeklogo.com/images/E/ete-logo-C00FB6F54C-seeklogo.com.png" width="130" height="50">
+    </div>
+</nav>
+
+<div style="background:transparent !important" class="jumbotron">
+    <form #carteiraForm="ngForm" (ngSubmit)="salvarValor()">
+        <div class="row justify-content-center">
+            <div class="col-sm-9">
+                <h1 class="display-4">Cadastro de Produtos</h1>
+                <p class="lead">Um simples auxiliar pra cadastrar seus produtos! 🛒</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+
+                <!-- EDITADO -->
+                <div class="form-group">
+                    <label for="descricao">Nome <em>*</em></label>
+                    <input type="text" name="Nome" class="form-control" id="Name" placeholder="Nome"
+                        [(ngModel)]="carteira.nome" #descricao="ngModel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Quantidade <em>*</em></label>
+                    <input type="number" name="Quantidade" class="form-control" id="Quantidade" placeholder="Quantidade"
+                        [(ngModel)]="carteira.quantidade" #descricao="ngModel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Telefone <em>*</em></label>
+                    <input type="text" name="Nome" class="form-control" id="Name" placeholder="Telefone"
+                        [(ngModel)]="carteira.telefone" #descricao="ngModel" required>
+                </div>
+                <!-- EDITADO -->
+            </div>
+
+            <div class="col-lg-4">
+                <label for="descricao">Valor e Fluxo de Caixa <em>*</em></label>
+                <div class="input-group mb-3">
+                    
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">R$</span>
+                    </div>
+                    <input name="valor" class="form-control" type="number" [(ngModel)]="carteira.valor"
+                        #valor="ngModel" required>
+
+                    <select class="form-control" id="moneyOption" name="caixa" [(ngModel)]="carteira.caixa"
+                        #caixa="ngModel" required>
+                        <option disabled selected value> Fluxo de Caixa </option>
+                        <option>Entrada</option>
+                        <option>Saída</option>
+                        <!-- Edit -->
+                        <option>Quantidade</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição do Valor <em>*</em></label>
+                    <input type="email" name="descricao" class="form-control" id="descricao" placeholder="Ifood"
+                        [(ngModel)]="carteira.descricao" #descricao="ngModel" required>
+                </div>
+                <div class="form-group">
+                    <label for="data_valor">Data <em>*</em></label>
+                    <input class="form-control" name="data_valor" type="date" id="data_valor"
+                        [(ngModel)]="carteira.data_valor" #data_valor="ngModel" required 
+                        min='2021-01-01' onkeydown="return false">
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <p class="lead">
+                        <input class="btn btn-success btn-sm" type="submit" value="Salvar"
+                            [disabled]="carteiraForm.invalid">
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8 table-wrapper-scroll-y my-custom-scrollbar mt-5">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Telefone</th>
+
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Opções</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let index of carteiras">
+                            <td>{{index.nome}}</td>
+                            <td>{{index.quantidade}}</td>
+                            <td>{{index.telefone}}</td>
+
+                            <td>{{index.caixa}}</td>
+                            <td>{{index.descricao}}</td>
+                            <td>{{index.data_valor | date: 'dd/MM/yyyy'}}</td>
+                            <td>R${{index.valor}}</td>
+                            <td>
+                                <i class="bi bi-pen" (click)="editarRegistro(index.id)"> </i> | <i class="bi bi-x-circle" (click)="deletaRegistro(index)"></i>
+                            </td>
+
+                            
+
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    <div class="row justify-content-center">
+        <div class="col-lg-4">
+            <app-bars-chart></app-bars-chart>
+        </div>
+        
+        <div class="col-lg-2 mr-3">
+            <app-pie-chart></app-pie-chart>
+        </div>
+        <div class='col-lg-2'></div>
+        <div class="col-lg-4">
+            <app-donut-chart></app-donut-chart>
+        </div>
+    </div>
+</div>
+
+
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+    <span class="mb-3 mb-md-0 text-muted">Modificado por Jhonatha Ruan 01/08/2022</span>
+    </div>
+</footer>
